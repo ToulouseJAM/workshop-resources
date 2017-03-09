@@ -15,7 +15,7 @@ Ne touchez à aucun autre champ.
 
 * Créer un nouveau job de type Pipeline en lui donnant le nom qui vous fait plaisir
 
-NOTE: Si vous n'avez pas encore eu l'occasion de voir les nouveautés de Jenkins 2, vous remarquerez que la configuration des jobs est maintenant accessible sous forme d'onglet beaucoup plus pratique qu'auparavant.
+NOTE: Si vous n'avez pas encore eu l'occasion de voir les nouveautés de Jenkins 2, vous remarquerez que la configuration des jobs est maintenant accessible sous forme d'onglets beaucoup plus pratique qu'auparavant.
 
 * Dans la partie Pipeline, cliquez sur le lien `Pipeline Syntax`.
 
@@ -90,7 +90,7 @@ La configuration du Master n'est pas correcte par défaut, il faut corriger la c
 * Les stages `staging` et `deploy` doivent allouer un agent (n'importe lequel) et effectuer un `sleep` de 5s.
 
 NOTE: Cette partie est volontairement non détaillée.
-Aidez-vous de la documentation intégrée via le lien `Pipeline Syntax` précédemment. Autres ressources pouvant vous aider : +
+Aidez-vous de la documentation intégrée via le lien `Pipeline Syntax` précédemment parcouru. Autres ressources pouvant vous aider : +
 link:https://www.cloudbees.com/blog/parallelism-and-distributed-builds-jenkins[Parallelism and Distributed Builds with Jenkins] +
 link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#using-agents[Using Agent] +
 link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#pausing-flyweight-vs-heavyweight-executors[Flyweight vs. Heavyweight Executors]

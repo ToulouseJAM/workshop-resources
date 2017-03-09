@@ -55,6 +55,11 @@ Vous devriez être capable de lancer la commande dans un terminal (GitBash sur W
 [source,bash]
 $> java -jar cli.jar -i votre_cle_SSH -s http://${IP_JENKINS}:8080 declarative-linter --username ${VOTRE_USER_JENKINS} --password ${VOTRE_PASSWORD} < chemin/vers/votre/Jenkinsfile
 
+La même commande sur windows (Git Shell sur Windows) :
+
+[source,bat]
+cat .\Jenkinsfile | java -jar jenkins-cli.jar -i votre_cle_SSH -s http://${IP_JENKINS}:8080 declarative-linter
+
 TIP: le CLI vous permet de faire énormément de chose sur Jenkins à distance. Utiliser la commande `help` pour avoir une liste exhaustive de toutes les actions possible.
 
 === Créer un job GitHub Organization

@@ -8,7 +8,7 @@ Revenez sur votre Jenkins, on va maintenant ajouter vos credentials GitHub.
 
 * Si vous n'en avez déjà pas une, générez vous un token d'API GitHub => Aller sur https://github.com/settings/tokens
 
-Ce token doit avoir tous les droits sur `repo` et `admin:repo_hook`.
+Ce token doit avoir tous les droits sur `repo`, `admin:repo_hook` et `admin:org_hook`.
 
 Le token généré par GitHub correspondra au mot de passe à spécifier par la suite.
 

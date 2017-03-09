@@ -18,7 +18,7 @@ CAUTION: Attention, GitHub ne vous permet pas de revoir votre token par la suite
 
 Ajouter un credentials avec votre compte utilisateur GitHub, le mot de passe à renseigner correspondant au token de l'API GitHub généré précédement.
 
-NOTE: Pour info, vous êtes le seul à avoir accès à votre instance Jenkins et le token d'API et chiffré sur le disque. Dans tous les cas, il vaudra mieux révoquer votre token d'API à la fin du workshop.
+NOTE: Pour info, vous êtes le seul à avoir accès à votre instance Jenkins et le token d'API est chiffré sur le disque. Dans tous les cas, il vaudra mieux révoquer votre token d'API à la fin du workshop.
 
 === Créer une organisation GitHub
 
@@ -44,7 +44,7 @@ TIP: Aidez vous de la documentation de Pipeline: https://jenkins.io/doc/book/pip
 
 === Validation syntaxique de votre pipeline
 
-En vous aidant de la link:https://jenkins.io/doc/book/managing/cli/#using-the-cli-client[documentation du CLI Jenkins], valider la syntaxe de fichier Jenkinsfile à distance.
+En vous aidant de la link:https://jenkins.io/doc/book/managing/cli/#using-the-cli-client[documentation du CLI Jenkins], validez la syntaxe de fichier Jenkinsfile à distance.
 
 Afin de pouvoir vous connecter via le CLI à Jenkins, il vous faudra vous générer une paire de clé SSH et ajouter la clé publique dans la configuration de votre utilisateur. Voir link:https://jenkins.io/doc/book/managing/cli/#authentication[https://jenkins.io/doc/book/managing/cli/#authentication]
 
@@ -72,13 +72,13 @@ TIP: A noter qu'en mode "développement" de pipeline Jenkins, il est souvent plu
 
 On va maintenant remplir les "trous" de notre pipeline pour qu'il serve un peu à quelque chose :-)
 
-1. Dans le stage `build & unit tests`, configurer votre pipeline pour lancer une build Maven dans le stage `build & unit tests`. Plusieurs solutions s'offre à vous, on vous conseille d'utiliser la step `withMaven` (voir link:https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Maven+Plugin[doc])
+1. Dans le stage `build & unit tests`, configurer votre pipeline pour lancer une build Maven dans le stage `build & unit tests`. Plusieurs solutions s'offrent à vous, on vous conseille d'utiliser la step `withMaven` (voir link:https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Maven+Plugin[doc])
 2. Dans le stage `build & unit tests`, après le build Maven, ajoutez une step de `stash` du binaire `target/\*.jar` généré.
 4. Dans les stages `staging` et `deploy`, ajouter une step de `unstash` du binaire. Assurez-vous que le binaire est bien présent dans le workspace en déclencheant la commande `ls -l target` après le `unstash`.
 5. Comme Jenkins réutilise les workspaces lorsqu'il le peut, il vaut mieux nettoyer systématiquement les workspaces lors de l'utilisation de step comme `unstash` afin d'être sûr d'avoir un workspace propre à chaque build.
 Ajouter une step pour nettoyer le workspace courant juste avant l'utilisation de `unstash`.
 
-NOTE: aidez vous de la link:https://jenkins.io/doc/book/pipeline/syntax/[documentation Pipeline] ainsi que du `Snippet Generator`.
+NOTE: aidez-vous de la link:https://jenkins.io/doc/book/pipeline/syntax/[documentation Pipeline] ainsi que du `Snippet Generator`.
 
 === Analyse statique du code
 

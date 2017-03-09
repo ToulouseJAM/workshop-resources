@@ -1,0 +1,99 @@
+= Atelier Jenkins Pipeline
+
+== Workshop #2 - Pipeline As Code
+
+=== Credentials GitHub
+
+Revenez sur votre Jenkins, on va maintenant ajouter vos credentials GitHub.
+
+* Si vous n'en avez déjà pas une, générez vous un token d'API GitHub => Aller sur https://github.com/settings/tokens
+
+Ce token doit avoir tous les droits sur `repo` et `admin:repo_hook`.
+
+Le token généré par GitHub correspondra au mot de passe à spécifier par la suite.
+
+CAUTION: Attention, GitHub ne vous permet pas de revoir votre token par la suite, conservez le bien.
+
+* Sur votre Jenkins, allez ensuite sur la page http://<VOTRE_IP>:8080/credentials/store/system/domain/_/
+
+Ajouter un credentials avec votre compte utilisateur GitHub, le mot de passe à renseigner correspondant au token de l'API GitHub généré précédement.
+
+NOTE: Pour info, vous êtes le seul à avoir accès à votre instance Jenkins et le token d'API et chiffré sur le disque. Dans tous les cas, il vaudra mieux révoquer votre token d'API à la fin du workshop.
+
+=== Créer une organisation GitHub
+
+* Se Connecter à GitHub avec votre compte, et créer une nouvelle organisation. Donnez lui nom qui vous fait plaisir.
+* Forker le repo https://github.com/ToulouseJAM/spring-petclinic avec votre organisation
+
+=== Jenkinsification du projet
+
+On va maintenant ajouter un Jenkinsfile à votre projet.
+
+* Sur votre machine, clonez le repository précédement forké dans votre organisation : git@github.com:${VOTRE_ORGANISATION}/spring-petclinic.git
+
+* Créer une branche `Jenkinsification` à partir de master, et créer un fichier `Jenkinsfile` à la racine de votre repo :
+
+[source,bash]
+$> git checkout -b Jenkinsification && touch Jenkinsfile
+
+* Transformer le pipeline "scripté" créé dans la première partie de l'atelier en `Declarative Pipeline` (commençant par `pipeline{ ... }`)
+
+NOTE: pour vous faciliter la vie, vous pouvez essayer de générer l'ossature de votre pipeline avec le plugin BlueOcean Visual Editor. Celui-ci est accessible via http://${IP_JENKINS}:8080/blue/pipeline-editor-demo. Ce project est actuellement en `alpha`! ne soyez pas surpris d'avoir des comportements... étranges :-).
+
+TIP: Aidez vous de la documentation de Pipeline: https://jenkins.io/doc/book/pipeline/
+
+=== Validation syntaxique de votre pipeline
+
+En vous aidant de la link:https://jenkins.io/doc/book/managing/cli/#using-the-cli-client[documentation du CLI Jenkins], valider la syntaxe de fichier Jenkinsfile à distance.
+
+Afin de pouvoir vous connecter via le CLI à Jenkins, il vous faudra vous générer une paire de clé SSH et ajouter la clé publique dans la configuration de votre utilisateur. Voir link:https://jenkins.io/doc/book/managing/cli/#authentication[https://jenkins.io/doc/book/managing/cli/#authentication]
+
+NOTE: Si vous n'êtes pas à l'aise avec la génération de clé SSH, pas de soucis ! Demandez à Baptiste ou Michaël de vous donner un coup de main.
+
+Vous devriez être capable de lancer la commande dans un terminal (GitBash sur Windows) :
+
+[source,bash]
+$> java -jar cli.jar -i votre_cle_SSH -s http://${IP_JENKINS}:8080 declarative-linter --username ${VOTRE_USER_JENKINS} --password ${VOTRE_PASSWORD} < chemin/vers/votre/Jenkinsfile
+
+TIP: le CLI vous permet de faire énormément de chose sur Jenkins à distance. Utiliser la commande `help` pour avoir une liste exhaustive de toutes les actions possible.
+
+=== Créer un job GitHub Organization
+
+1. Une fois la validation de votre Pipeline OK, committez et pusher les modifications apportées à votre branche `Jenkinsification` sur votre fork.
+2. Sur Jenkins, créer un nouveau job de type  `GitHub Organization` et compléter la configuration pour pointer vers votre organisation. Pensez à sélectionner votre credential précédemment créé. Normalement les options par défaut suffisent pour le reste des paramètres.
+
+Jenkins doit normalement scanner toutes les branches de toutes les repositories de votre organisation à la recherche de Jenkinsfile, puis créer les jobs et déclenchés les builds associés.
+
+NOTE: Lorsque vous aurez réussi un premier build, vous pourrez remarquer une phrase à la fin du build "GitHub has been notified of this commit’s build result". Côté GitHub, pour chacun de vos commits en succès/échec, le status du build sera automatiquement affiché.
+
+TIP: A noter qu'en mode "développement" de pipeline Jenkins, il est souvent plus pratique d'utiliser l'action `Replay` en modifiant le script avec vos corrections, plutôt que de modifier localement + commit + push systématiquement.
+
+=== Construction de vos binaires
+
+On va maintenant remplir les "trous" de notre pipeline pour qu'il serve un peu à quelque chose :-)
+
+1. Dans le stage `build & unit tests`, configurer votre pipeline pour lancer une build Maven dans le stage `build & unit tests`. Plusieurs solutions s'offre à vous, on vous conseille d'utiliser la step `withMaven` (voir link:https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Maven+Plugin[doc])
+2. Dans le stage `build & unit tests`, après le build Maven, ajoutez une step de `stash` du binaire `target/\*.jar` généré.
+4. Dans les stages `staging` et `deploy`, ajouter une step de `unstash` du binaire. Assurez-vous que le binaire est bien présent dans le workspace en déclencheant la commande `ls -l target` après le `unstash`.
+5. Comme Jenkins réutilise les workspaces lorsqu'il le peut, il vaut mieux nettoyer systématiquement les workspaces lors de l'utilisation de step comme `unstash` afin d'être sûr d'avoir un workspace propre à chaque build.
+Ajouter une step pour nettoyer le workspace courant juste avant l'utilisation de `unstash`.
+
+NOTE: aidez vous de la link:https://jenkins.io/doc/book/pipeline/syntax/[documentation Pipeline] ainsi que du `Snippet Generator`.
+
+=== Analyse statique du code
+
+1. Aller sur votre instance SonarQube : le login/mdp par défaut est admin/admin. Changez directement le mot de passe de l'utilisateur admin.
+2. Générez ensuite un token d'API SonarQube dans la partie Sécurité des options de l'utilisateur admin : voir link:http://${IP_SONARQUBE}:9000/account/security/[http://${IP_SONARQUBE}:9000/account/security/]
+3. Dans la configuration globale de Jenkins, ajouter les infos permettant de vous connecter à votre instance SonarQube.
+4. Améliorer le stage `static-analysis` pour permettre de faire une analyse SonarQube (voir step `withSonarQubeEnv` => link:https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins[documentation associée])
+
+Relancer votre pipeline, vous devriez voir apparaitre l'icône de SonarQube au niveau du build. Aller sur SonarQube et vérifiez que l'analyse s'est bien effectuée.
+
+=== Restreindre les phases de déploiement à la branche master uniquement
+
+Comme nous travaillons généralement sur plusieurs branches avec Git, il peut être compliqué de gérer des déploiements de versions différentes de notre application sur de même environnements cibles.
+Il est donc préférable de resteindre les phases de déploiement à la branche `master` uniquement.
+
+1. En vous aidant de la link:https://jenkins.io/doc/book/pipeline/syntax/[documentation Pipeline] faites en sorte que les stages `staging`, `manual-approval` et `deploy` ne se déclenchent pas lorsque la branche actuellement construite n'est pas la branche `master`.
+2. Pusher vos modifications sur la branche `Jenkinsification` et observez le déroulement du build. Les stages `staging`, `manual-approval` et `deploy` doivent normalement être "skippées"
+3. Fusionner maintenant la branche `Jenkinsification` et la branche `master`, pusher vos modifications et observer le build. Les étapes de déploiement doivent normalement s'activer.

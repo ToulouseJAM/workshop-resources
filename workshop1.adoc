@@ -15,7 +15,7 @@ Ne touchez à aucun autre champ.
 
 * Créer un nouveau job de type Pipeline en lui donnant le nom qui vous fait plaisir
 
-NOTE: Si vous n'avez pas encore eu l'occasion de voir les nouveautés de Jenkins 2, vous remarquerez que la configuration des jobs est maintenant accessible sous forme d'onglet beaucoup plus pratique qu'auparavant.
+NOTE: Si vous n'avez pas encore eu l'occasion de voir les nouveautés de Jenkins 2, vous remarquerez que la configuration des jobs est maintenant accessible sous forme d'onglets beaucoup plus pratique qu'auparavant.
 
 * Dans la partie Pipeline, cliquez sur le lien `Pipeline Syntax`.
 

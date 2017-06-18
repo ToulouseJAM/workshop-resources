@@ -43,7 +43,7 @@ stage("staging") {
 }
 
 stage("manual-approval") {
-    input "Deploiement en production ?"
+    input "Deploy to production?"
 }
 
 stage("deploy") {

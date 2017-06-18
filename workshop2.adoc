@@ -95,14 +95,14 @@ There are many ways to achieve this, as always, we recommend using the `withMave
 2. In the `build & unit tests` stage, after the Maven build, add a step to `stash` the generated binaries `target/\*.jar`.
 4. In the `staging` and `deploy` stages, add an `unstash` step for the binaries.
 Make sure the binary is available in the workspace using `ls -l target` after the `unstash` call.
-5. As Jenkins reuses workspaces by default when possible, it's recommended to always cleanup workspaces when using steps like `unstash` to make sure the WS is clean each time and avoid issues.
+5. As Jenkins reuses workspaces by default when possible, it's recommended to always cleanup workspaces when using steps like `unstash` to make sure the workspace is clean each time and avoid issues.
 So add that cleanup just before calling `unstash`.
 
 NOTE: Use the link:https://jenkins.io/doc/book/pipeline/syntax/[Pipeline documentation] and the `Snippet Generator`.
 
 === Static code analysis
 
-1. Open your SonarQube instance: the default credentials are admin/admin. Changez directement le mot de passe de l'utilisateur admin.
+1. Open your SonarQube instance: the default credentials are admin/admin. Change directly the admin password.
 2. Generate a SonarQube API token in the Security part in the options of the admin user: see link:http://${IP_SONARQUBE}:9000/account/security/[http://${IP_SONARQUBE}:9000/account/security/]
 3. In the global configuration of Jenkins, configure the informations to access your SonarQube instance.
 4. Improve the `static-analysis` stage to allow a SonarQube analysis (see `withSonarQubeEnv` step => link:https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins[documentation])

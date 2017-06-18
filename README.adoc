@@ -5,14 +5,14 @@
 Presentation : https://docs.google.com/presentation/d/1FKkraQdr4oxRephVnItUmOUe9pBeC0dRfZXCxqoubg0
 
 
-== Prérequis
+== Prerequisites
 
 * A laptop :-)
 * Git available on the machine (and basic knowledge)
 * GitHub account
 * IntelliJ IDEA installed (for GDSL specific parts/demo), for other any other IDE/text editor will do
 
-== Ateliers
+== Workshops
 
 Goal: explore Jenkins Pipeline features in the context of Continuous Delivery
 
@@ -49,7 +49,7 @@ You should see the informations for your own infrastructure for the workshop (th
 * link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md[Pipeline Tutorial]
 * link:https://github.com/jenkinsci/workflow-cps-global-lib-plugin/blob/master/README.md[Pipeline Shared Libraries]
 
-=== Articles & Vidéos
+=== Articles & Videos
 
 * link:http://st-g.de/2016/08/jenkins-pipeline-autocompletion-in-intellij[Jenkins Pipeline IntelliJ GDSL]
 * link:https://jenkins.io/blog/2016/09/19/blueocean-beta-declarative-pipeline-pipeline-editor/[Announcing the Blue Ocean beta, Declarative Pipeline and Pipeline Editor]

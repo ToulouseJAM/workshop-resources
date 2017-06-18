@@ -6,12 +6,13 @@ Goals : play with new features offered by Jenkins Pipeline in "Scripted" mode
 
 === HelloWorldeuCon'
 
-* Authenticate to your Jenkins with given credentials
+* Authenticate to your Jenkins with provided credentials
 
-TODO A GARDER? CAUTION: Sous Jenkins/Administrer Jenkins/Configurer le système (url /configure), vous *devez* aller modifier le champ _SSH Public key_, sous Cloud/Digital Ocean.
-Vous *devez* sélectionner la valeur `workshop (56:4f:3a:5e:88:7b:26:4a:68:8f:b3:25:17:71:19:88)` sinon la création dynamique d'agents ne fonctionnera pas dans la suite du TP.
-Puis cliquez sur Enregistrer.
-Ne touchez à aucun autre champ.
+CAUTION: Under Jenkins/Administrer (url /configure), you *must* set the _SSH Public key_ field, under Cloud/Digital Ocean.
+You *must* select the following value `workshop (56:4f:3a:5e:88:7b:26:4a:68:8f:b3:25:17:71:19:88)`.
+If you don't the dynamic agent creation will not work.
+Then click on Save.
+You do not need to touch anything else.
 
 * Create a new Pipeline job
 
@@ -90,19 +91,10 @@ La configuration du Master n'est pas correcte par défaut, il faut corriger la c
 
 * Les stages `staging` et `deploy` must allocate any agent and do a `sleep` of 5s
 
-NOTE: This exercise is voluntary not detailed.
+NOTE: This exercise is not detailed on purpose.
 
-<<<<<<< f5b3325a6e374849533e4f469eaf682354335ecb
-NOTE: Cette partie est volontairement non détaillée.
-Aidez-vous de la documentation intégrée via le lien `Pipeline Syntax` précédemment parcouru. Autres ressources pouvant vous aider : +
-link:https://www.cloudbees.com/blog/parallelism-and-distributed-builds-jenkins[Parallelism and Distributed Builds with Jenkins] +
-link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#using-agents[Using Agent] +
-=======
 You can find some documentation on the `Pipeline Syntax` page. The following links can also be useful :
-+
-link:https://www.cloudbees.com/blog/parallelism-and-distributed-builds-jenkins[Parallelism and Distributed Builds with Jenkins]
-+
-link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#using-agents[Using Agent]
-+
->>>>>>> Add workshop #1 translation
-link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#pausing-flyweight-vs-heavyweight-executors[Flyweight vs. Heavyweight Executors]
+
+* link:https://www.cloudbees.com/blog/parallelism-and-distributed-builds-jenkins[Parallelism and Distributed Builds with Jenkins]
+* link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#using-agents[Using Agent]
+* link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md#pausing-flyweight-vs-heavyweight-executors[Flyweight vs. Heavyweight Executors]

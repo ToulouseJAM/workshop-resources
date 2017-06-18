@@ -59,7 +59,7 @@ pipeline {
                 branch "master"
             }
             steps {
-                input "sur ?"
+                input "Sure?"
             }
         }
 

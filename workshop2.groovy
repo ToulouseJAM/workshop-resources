@@ -56,7 +56,7 @@ pipeline {
 
         stage("manual-approval") {
             steps {
-                input "sur ?"
+                input "Sure?"
             }
         }
 

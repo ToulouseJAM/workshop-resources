@@ -1,0 +1,58 @@
+= Toulouse JAM - Atelier Jenkins Pipeline
+
+== Slides
+
+Presentation : https://docs.google.com/presentation/d/1FKkraQdr4oxRephVnItUmOUe9pBeC0dRfZXCxqoubg0
+
+
+== Prerequisites
+
+* A laptop :-)
+* Git available on the machine (and basic knowledge)
+* GitHub account
+* IntelliJ IDEA installed (for GDSL specific parts/demo), for other any other IDE/text editor will do
+
+== Workshops
+
+Goal: explore Jenkins Pipeline features in the context of Continuous Delivery
+
+There will be 3 main parts during the workshop.
+The content shall be updated progressively on this repository by the trainers.
+
+Before each new part, a presentation will be done to introduce new concepts & features bits by bits.
+
+Each part has its own file:
+
+* link:workshop1.adoc[workshop1.adoc - Jenkins Pipeline Basics]
+* link:workshop2.adoc[workshop2.adoc - Pipeline As Code]
+* link:workshop3.adoc[workshop3.adoc - Shared libraries and Deployment]
+
+== Getting connection informations
+
+You have been given a unique number. (If not, please shout! :-)).
+
+* With your browser, please open https://jenkins-workshop.pailloncy.fr/${MY_NUMBER}.txt using the provided credentials.
+You should see the informations for your own infrastructure for the workshop (there is one per attendee).
+
+* Try to connect to your jenkins : http://${IP_JENKINS}:8080/
+
+== Resources
+
+=== Documentation
+
+* link:https://jenkins.io/doc/[Jenkins Documentation]
+* link:https://jenkins.io/doc/book/pipeline/[Pipeline Documentation]
+* link:https://jenkins.io/doc/book/managing/cli/[Jenkins CLI Documentation]
+* link:https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md[Pipeline Best Practices]
+* link:https://github.com/jenkinsci/pipeline-plugin/blob/master/COMPATIBILITY.md[Pipeline Plugin Compatibility]
+* link:https://github.com/cloudbees/groovy-cps/[Groovy CPS]
+* link:https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md[Pipeline Tutorial]
+* link:https://github.com/jenkinsci/workflow-cps-global-lib-plugin/blob/master/README.md[Pipeline Shared Libraries]
+
+=== Articles & Videos
+
+* link:http://st-g.de/2016/08/jenkins-pipeline-autocompletion-in-intellij[Jenkins Pipeline IntelliJ GDSL]
+* link:https://jenkins.io/blog/2016/09/19/blueocean-beta-declarative-pipeline-pipeline-editor/[Announcing the Blue Ocean beta, Declarative Pipeline and Pipeline Editor]
+* link:https://www.youtube.com/watch?v=mn61VFdScuk[James Dumay on Blue Ocean]
+* link:https://www.youtube.com/watch?v=ALvg4KK25JU[Andrew Bayer on Declarative Pipeline]
+* link:https://www.youtube.com/watch?v=51fndpAWpYQ[Jesse Glick on the future of Pipeline]

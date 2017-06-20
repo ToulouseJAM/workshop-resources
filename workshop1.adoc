@@ -51,7 +51,7 @@ TIP: Jenkins keeps the Pipeline script used for all your builds.
 
 NOTE: this step is not mandatory, we are not expecting you to have IntelliJ IDEA installed locally, especially at the EclipseCon France conference :-)
 
-* Open IntelliJ IDEA and create a new Groovy project créer un nouveau projet de type Groovy
+* Open IntelliJ IDEA and create a new Groovy project
 * On Jenkins, got to `Pipeline Syntax` page and copy the content of the `IntelliJ IDEA GDSL` page
 * Create a new file `autocompletion.gdsl` on the `src` directory and copy the copied content
 * Create a file `pipeline.groovy` inside `src` directory and try to autocomplete things inside

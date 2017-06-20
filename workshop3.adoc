@@ -1,0 +1,66 @@
+= Jenkins Pipeline Workshop
+
+== Workshop #3 - Deployment
+
+=== Global Shared Libraries
+
+1. In GitHub, fork https://github.com/ToulouseJAM/workshop-global-lib into your GitHub organization
+2. In the Jenkins Global Configuration, add the following shared library: https://github.com/${VOTRE_ORGANISATION}/workshop-global-lib.git
+3. Configure the implicit load of that library
+
+=== SSH Configuration
+
+Let's now add the required SSH configuration to be able to connect to the staging/production environments.
+
+An SSH keypair has been generated specifically for the deployments.
+
+1. Retrieve the content of the private key via http://jenkins-workshop.pailloncy.fr/id_rsa_workshop
+
+2. Open link:http://<JENKINS_IP>:8080/credentials/store/system/domain/_/[http://<JENKINS_IP>:8080/credentials/store/system/domain/_/] then `Add Credentials`
+3. Add an entry of type `SSH username with private key`
+
+** ID : deploy_key
+** description : deploy_key
+** Username : root
+** Private key : ${PRIVATE_KEY_CONTENT}
+
+You're now going to be able to use those credentials in your Pipeline.
+
+=== Deploying the binaries into the staging environment
+
+1. Use the `copyFileTo(username,host,localpath,remotepath)`, `sshExec(username,host,command)` and `stopApplicationGracefully(username,host)` functions of your shared library to:
+* stop your application on the staging environment by calling `stopApplicationGracefully`
+* copy your binary into the staging environment using `copyFileTo` (put `/root/app.jar` for the destination)
+* Start your application using `sshExec`
+
+To start the app, you will need to use `nohup java -jar /root/app.jar &>/dev/null &` on the target environment.
+
+NOTE: To load the credentials discussed previously, you want to use the `ssh-agent` step.
+See https://jenkins.io/doc/pipeline/steps/ssh-agent/
+
+(In this example, we're doing a VERY simple deployment (and well, a bit dirty :-)).
+The goal is solely to show the Pipeline features and the principles that help you chain one step to the next one in your delivery process.
+To go the next level in the setup of your Continuous Delivery, we would probably to discuss the constraints that would be more specific to the actual technology you're using, but this is out of scope for this workshop.)
+
+Run your Pipeline, you should see the _PetClinic_ app appear after a few seconds on the port 8080.
+
+=== Creating a `deploy` step
+
+1. By reusing the steps used above for the deployment into the staging environment,
+create a `deploy` step in your shared library.
+This step must leverage the ones previously used.
+The goal is obviously to avoid copy/pasting the steps put in place for `staging`, and make sure to `deploy` into the two environments using the exact same way.
+
+2. Do the same to deploy the binaries with the same way during the `staging` and `deploy` stages, then double check everything works.
+
+3. Modify your PetClinic application to check that your application does update correctly.
+For instance, add a title into the `src/main/resources/templates/welcome.html` HTML File, then commit & push that modification to the master branch.
+
+You should see your modifications appear on the staging environement, then on the production one after you approve the Pipeline `input`.
+
+=== Wait, wait, waaaaait! Where is the whale?!
+
+For those starting to shake out of excitement, alriiight, let's do some Docker :-)
+
+Use Docker to build the application during the `build & unit tests` stage.
+To that end, change the agent type into `docker`: you can use the `cloudbees/java-build-tools` Docker image, which contains everything you need to build your project.
